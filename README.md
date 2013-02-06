@@ -5,7 +5,13 @@ The scripts in this repo collect data on all the products in a category from new
 
 Run a script
 ------------
-As long as the dependencies are installed (lxml, pandas, requests), just run one of the scripts to get the latest data. For example, to get the latest product data for solid state drives simply run:
+First make sure the dependencies are installed:
+
+*   [lxml][lxmlgithub]
+*   [pandas][pandasgithub]
+*   [requests][requestsgithub])
+
+Then simply run one of the scripts to fetch the latest data and store it in the database. For example, to get the latest product data for solid state drives run:
 
 ```bash
 python ssd.py
@@ -40,3 +46,7 @@ Then you can get the same DataFrame of solid state drive data as before by doing
 ```python
 ssd_df = data['ssd']
 ```
+
+[lxmlgithub]: http://github.com/lxml/lxml
+[pandasgithub]: http://github.com/pydata/pandas
+[requestsgithub]: http://github.com/kennethreitz/requests
