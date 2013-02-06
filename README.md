@@ -23,7 +23,7 @@ import sqlite3
 from pandas.io.sql import read_frame
 
 db = sqlite3.connect('db/newegg.db')
-micedf = read_frame('SELECT * FROM ssd', db)
+ssd_df = read_frame('SELECT * FROM ssd', db)
 ```
 
 Or make a dict of DataFrames with keys equal to the table names and values equal to the table as a DataFrame:
@@ -36,7 +36,7 @@ tbls = read_frame('SELECT name FROM sqlite_master WHERE type="table"', db)
 data = {tbl: read_frame('SELECT * FROM %s' % tbl, db) for tbl in tbls['name']}
 ```
 
-Then you can get the same mice DataFrame as before by doing:
+Then you can get the same DataFrame of solid state drive data as before by doing:
 ```python
-micedf = data['ssd']
+ssd_df = data['ssd']
 ```
