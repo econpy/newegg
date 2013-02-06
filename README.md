@@ -2,8 +2,8 @@ About
 -----
 Each of these scripts collect data on all the products in a category from newegg.com and store the data in a SQLite database table.
 
-Example: Run a script
----------------------
+Run a script
+------------
 As long as the dependencies are installed (lxml, pandas, requests), simply do the following to collect data on all the computer mice:
 
 ```bash
@@ -14,8 +14,8 @@ python mice.py
 
 A table will be created in the **db/newegg.db** database (if it doesn't already exist) and the latest data will be inserted.
 
-Example: Query the database
----------------------------
+Query the database
+------------------
 Here is a little snippet that can be used to turn a table in the database into a pandas DataFrame:
 
 ```python
