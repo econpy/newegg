@@ -47,8 +47,7 @@ def getData(pidList):
     for pid in pidList:
         sleep(1)
         try:
-            r = requests.get('%s/%s' % (apiurl, pid))
-            r = r.content
+            r = requests.get('%s/%s' % (apiurl, pid)).content
             js = loads(r)
             g = {}
             g['Title'] = js['Title']
@@ -75,6 +74,16 @@ def getData(pidList):
             else:
                 g['ShippingPrice'] = float(ShippingPrice.replace('$', ''))
             g['IsShipByNewegg'] = BoolToInt(js['IsShipByNewegg'])
+
+            if len(js['PromotionText']) > 0:
+                g['Promotion'] = js['PromotionText']
+            else:
+                g['Promotion'] = 'NaN'
+            MIR = js['MailInRebateInfo']
+            if MIR is None:
+                g['MailInRebateInfo'] = 'NaN'
+            else:
+                g['MailInRebateInfo'] = js['MailInRebateInfo'][0]
             g['PID'] = pid
             g['Brand'] = js['CoremetricsInfo']['Brand']
             g['Date'] = dtn
@@ -99,13 +108,13 @@ def insertData(tbl, dframe):
     # CREATE TABLE IF NEEDED
     tblstr = 'CREATE TABLE IF NOT EXISTS %s (brand TEXT, date TEXT, ' % tbl + \
              'finalprice REAL, instock INTEGER, ishot INTEGER, ' + \
-             'isshipbynewegg INTEGER, originalprice REAL, pid TEXT, ' + \
-             'rating INTEGER, shippingprice REAL, title TEXT, ' + \
+             'isshipbynewegg INTEGER, rebate TEXT, originalprice REAL, pid TEXT, ' + \
+             'promotion TEXT, rating INTEGER, shippingprice REAL, title TEXT, ' + \
              'totalreviews INTEGER, finalpriceshipped REAL)'
     curs.execute(tblstr)
 
     # INSERT ALL THE DATA AT ONCE
-    curs.executemany('INSERT INTO %s VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)' % tbl,
+    curs.executemany('INSERT INTO %s VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)' % tbl,
                       [tuple(i[1]) for i in dframe.iterrows()])
     db.commit()
     curs.close()
