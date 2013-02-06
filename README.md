@@ -1,18 +1,18 @@
 About
 -----
-Each of these scripts collect data on all the products in a category from newegg.com and store the data in a SQLite database table.
+The scripts in this repo collect data on all the products in a category from newegg.com and store the data into a SQLite database table.
+
 
 Run a script
 ------------
-As long as the dependencies are installed (lxml, pandas, requests), simply do the following to collect data on all the computer mice:
+As long as the dependencies are installed (lxml, pandas, requests), just run one of the scripts to get the latest data. For example, to get the latest product data for solid state drives simply run:
 
 ```bash
-git clone git://github.com/econpy/newegg
-cd newegg
-python mice.py
+python ssd.py
 ```
 
 A table will be created in the **db/newegg.db** database (if it doesn't already exist) and the latest data will be inserted.
+
 
 Query the database
 ------------------
@@ -23,7 +23,7 @@ import sqlite3
 from pandas.io.sql import read_frame
 
 db = sqlite3.connect('db/newegg.db')
-micedf = read_frame('SELECT * FROM mice', db)
+micedf = read_frame('SELECT * FROM ssd', db)
 ```
 
 Or make a dict of DataFrames with keys equal to the table names and values equal to the table as a DataFrame:
@@ -38,5 +38,5 @@ data = {tbl: read_frame('SELECT * FROM %s' % tbl, db) for tbl in tbls['name']}
 
 Then you can get the same mice DataFrame as before by doing:
 ```python
-micedf = data['mice']
+micedf = data['ssd']
 ```
