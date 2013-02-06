@@ -3,25 +3,28 @@ About
 The scripts in this repo collect data on all the products in a category from newegg.com and store the data into a SQLite database table.
 
 
-Run a script
-------------
-First make sure the dependencies are installed:
+Dependencies
+-----------
+First make sure the following dependencies are installed:
 
 *   [lxml][lxmlgithub]
 *   [pandas][pandasgithub]
-*   [requests][requestsgithub])
+*   [requests][requestsgithub]
 
-Then simply run one of the scripts to fetch the latest data and store it in the database. For example, to get the latest product data for solid state drives run:
+
+Run a script
+-----------
+As an example, to get the latest product data for solid state drives simply run:
 
 ```bash
 python ssd.py
 ```
 
-A table will be created in the **db/newegg.db** database (if it doesn't already exist) and the latest data will be inserted.
+That's it! A table will be created in the **db/newegg.db** database (if it doesn't already exist) and the latest data will be inserted.
 
 
 Query the database
-------------------
+----------------
 Here is a little snippet that can be used to turn a table in the database into a pandas DataFrame:
 
 ```python
